@@ -1,0 +1,4 @@
+/Users/pearsonmorris/Developer/UntitledProject/Sim/debug-build/CMakeFiles/sim.dir
+/Users/pearsonmorris/Developer/UntitledProject/Sim/debug-build/CMakeFiles/dbg_sim.dir
+/Users/pearsonmorris/Developer/UntitledProject/Sim/debug-build/CMakeFiles/edit_cache.dir
+/Users/pearsonmorris/Developer/UntitledProject/Sim/debug-build/CMakeFiles/rebuild_cache.dir
