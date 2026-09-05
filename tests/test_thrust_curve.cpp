@@ -8,7 +8,7 @@ TEST_CASE("Testing simple case") {
     std::string test_doc_path = std::string(ROOT_DIR) + "/tests/test_thrust_doc.txt";
 
     ThrustPoint point1{1.0f, 2.0f};
-    ThrustPoint point2{3.0f, 5.0f};
+    ThrustPoint point2{3.0f, 4.0f};
 
     ThrustCurve curve{};
     curve.load(test_doc_path);
