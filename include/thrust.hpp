@@ -1,5 +1,6 @@
-#include <fstream>
+#include <cmath>
 #include <iostream>
+#include <fstream>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -10,30 +11,80 @@ struct ThrustPoint {
     float N;
 };
 
+enum class LoadError {
+    None,
+    FileNotFound,
+    InvalidFormat,
+    MalformedData,
+    ReadError
+};
+
 struct ThrustCurve {
     std::vector<ThrustPoint> points;
 
-    void load(std::string filename) {
+    LoadError load(std::string filename) {
         points.clear();
-        std::ifstream file(filename);
 
-        if (!file) std::cout << "File did not open\n";
-        
+        std::ifstream file(filename);
+        if (!file) return LoadError::FileNotFound;
+
         std::string line;
+        const std::string whitespace = " \t\r\n\f\v";
         while (std::getline(file, line)) {
-            size_t start_of_line = line.find_first_not_of(" \t\r\n");
-            if (start_of_line == std::string::npos) continue;
-            std::string reduced = line.substr(start_of_line);
+            const auto start = line.find_first_not_of(whitespace);
+            if (start == std::string::npos) continue;
+            std::string trm_line = line.substr(start);
+
+            if (trm_line.at(0) == ';') continue;
+
+            std::vector<std::string> tokens;
+            std::stringstream ss(line);
+            std::string token;
+            while (ss >> token) {
+                tokens.push_back(token);
+            }
+
+            if (tokens.size() != 2) { 
+                points.clear();
+                return LoadError::InvalidFormat;
+            }
+
             ThrustPoint point;
-            std::stringstream ss(reduced);
-            std::string t_str;
-            std::string N_str;
-            std::getline(ss, t_str, ' ');
-            std::getline(ss, N_str, ' ');
-            point.t = std::stof(t_str);
-            point.N = std::stof(N_str);
+            const auto val1 = tokens[0];
+            const auto val2 = tokens[1];
+            size_t pos;
+            try {
+                point.t = std::stof(val1, &pos);
+                if (pos != val1.size() || !std::isfinite(point.t)) {
+                    points.clear();
+                    return LoadError::InvalidFormat;
+                }
+                point.N = std::stof(val2, &pos);
+                if (pos != val2.size() || !std::isfinite(point.N)) {
+                    points.clear();
+                    return LoadError::InvalidFormat;
+                }
+            } catch (...) {
+                points.clear();
+                return LoadError::InvalidFormat;
+            }
+
+            if (!points.empty() && point.t <= points[points.size() - 1].t) {
+                points.clear();
+                return LoadError::MalformedData;
+            }
+
             points.push_back(point);
         }
+
+        if (file.bad()) {
+            points.clear();
+            return LoadError::ReadError;
+        }
+
+        if (points.empty()) return LoadError::InvalidFormat;
+
+        return LoadError::None;
     }
 
     float newt_at_t(float t) {
