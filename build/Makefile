@@ -57,13 +57,23 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/pearsonmorris/Developer/UntitledProject/Sim
+CMAKE_SOURCE_DIR = /Users/pearsonmorris/Developer/BYURocketry27/Simulator
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/pearsonmorris/Developer/UntitledProject/Sim/build
+CMAKE_BINARY_DIR = /Users/pearsonmorris/Developer/BYURocketry27/Simulator/build
 
 #=============================================================================
 # Targets provided globally by CMake.
+
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/opt/homebrew/bin/ctest $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -87,9 +97,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/pearsonmorris/Developer/UntitledProject/Sim/build/CMakeFiles /Users/pearsonmorris/Developer/UntitledProject/Sim/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/pearsonmorris/Developer/BYURocketry27/Simulator/build/CMakeFiles /Users/pearsonmorris/Developer/BYURocketry27/Simulator/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/pearsonmorris/Developer/UntitledProject/Sim/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/pearsonmorris/Developer/BYURocketry27/Simulator/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -142,6 +152,19 @@ dbg_sim/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dbg_sim.dir/build.make CMakeFiles/dbg_sim.dir/build
 .PHONY : dbg_sim/fast
 
+#=============================================================================
+# Target rules for targets named sim_tests
+
+# Build rule for target.
+sim_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sim_tests
+.PHONY : sim_tests
+
+# fast build rule for target.
+sim_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim_tests.dir/build.make CMakeFiles/sim_tests.dir/build
+.PHONY : sim_tests/fast
+
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
 
@@ -169,6 +192,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dbg_sim.dir/build.make CMakeFiles/dbg_sim.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+tests/test_thrust_curve.o: tests/test_thrust_curve.cpp.o
+.PHONY : tests/test_thrust_curve.o
+
+# target to build an object file
+tests/test_thrust_curve.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim_tests.dir/build.make CMakeFiles/sim_tests.dir/tests/test_thrust_curve.cpp.o
+.PHONY : tests/test_thrust_curve.cpp.o
+
+tests/test_thrust_curve.i: tests/test_thrust_curve.cpp.i
+.PHONY : tests/test_thrust_curve.i
+
+# target to preprocess a source file
+tests/test_thrust_curve.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim_tests.dir/build.make CMakeFiles/sim_tests.dir/tests/test_thrust_curve.cpp.i
+.PHONY : tests/test_thrust_curve.cpp.i
+
+tests/test_thrust_curve.s: tests/test_thrust_curve.cpp.s
+.PHONY : tests/test_thrust_curve.s
+
+# target to generate assembly for a file
+tests/test_thrust_curve.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/sim_tests.dir/build.make CMakeFiles/sim_tests.dir/tests/test_thrust_curve.cpp.s
+.PHONY : tests/test_thrust_curve.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -177,11 +224,16 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
 	@echo "... dbg_sim"
 	@echo "... sim"
+	@echo "... sim_tests"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... tests/test_thrust_curve.o"
+	@echo "... tests/test_thrust_curve.i"
+	@echo "... tests/test_thrust_curve.s"
 .PHONY : help
 
 

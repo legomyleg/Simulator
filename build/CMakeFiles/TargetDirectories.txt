@@ -1,4 +1,6 @@
-/Users/pearsonmorris/Developer/UntitledProject/Sim/build/CMakeFiles/sim.dir
-/Users/pearsonmorris/Developer/UntitledProject/Sim/build/CMakeFiles/dbg_sim.dir
-/Users/pearsonmorris/Developer/UntitledProject/Sim/build/CMakeFiles/edit_cache.dir
-/Users/pearsonmorris/Developer/UntitledProject/Sim/build/CMakeFiles/rebuild_cache.dir
+/Users/pearsonmorris/Developer/BYURocketry27/Simulator/build/CMakeFiles/sim.dir
+/Users/pearsonmorris/Developer/BYURocketry27/Simulator/build/CMakeFiles/dbg_sim.dir
+/Users/pearsonmorris/Developer/BYURocketry27/Simulator/build/CMakeFiles/sim_tests.dir
+/Users/pearsonmorris/Developer/BYURocketry27/Simulator/build/CMakeFiles/test.dir
+/Users/pearsonmorris/Developer/BYURocketry27/Simulator/build/CMakeFiles/edit_cache.dir
+/Users/pearsonmorris/Developer/BYURocketry27/Simulator/build/CMakeFiles/rebuild_cache.dir

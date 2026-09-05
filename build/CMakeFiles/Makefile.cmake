@@ -7,7 +7,7 @@ set(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "/Users/pearsonmorris/Developer/UntitledProject/Sim/CMakeLists.txt"
+  "/Users/pearsonmorris/Developer/BYURocketry27/Simulator/CMakeLists.txt"
   "CMakeFiles/4.3.1/CMakeCXXCompiler.cmake"
   "CMakeFiles/4.3.1/CMakeSystem.cmake"
   "/opt/homebrew/share/cmake/Modules/CMakeCXXInformation.cmake"
@@ -50,4 +50,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/sim.dir/DependInfo.cmake"
   "CMakeFiles/dbg_sim.dir/DependInfo.cmake"
+  "CMakeFiles/sim_tests.dir/DependInfo.cmake"
   )

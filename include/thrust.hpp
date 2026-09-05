@@ -1,8 +1,9 @@
 #include <fstream>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
-#include <types.hpp>
+#include "types.hpp"
 
 struct ThrustPoint {
     float t;
@@ -15,11 +16,16 @@ struct ThrustCurve {
     void load(std::string filename) {
         points.clear();
         std::ifstream file(filename);
+
+        if (!file) std::cout << "File did not open\n";
         
         std::string line;
         while (std::getline(file, line)) {
+            size_t start_of_line = line.find_first_not_of(" \t\r\n");
+            if (start_of_line == std::string::npos) continue;
+            std::string reduced = line.substr(start_of_line);
             ThrustPoint point;
-            std::stringstream ss(line);
+            std::stringstream ss(reduced);
             std::string t_str;
             std::string N_str;
             std::getline(ss, t_str, ' ');
