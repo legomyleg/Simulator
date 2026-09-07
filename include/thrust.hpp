@@ -9,6 +9,8 @@
 struct ThrustPoint {
     float t;
     float N;
+
+    bool operator==(const ThrustPoint&) const=default;
 };
 
 enum class LoadError {
@@ -22,10 +24,10 @@ enum class LoadError {
 struct ThrustCurve {
     std::vector<ThrustPoint> points;
 
-    LoadError load(std::string filename) {
+    LoadError load(std::string path) {
         points.clear();
 
-        std::ifstream file(filename);
+        std::ifstream file(path);
         if (!file) return LoadError::FileNotFound;
 
         std::string line;
@@ -89,6 +91,9 @@ struct ThrustCurve {
 
     float newt_at_t(float t) {
 
+        if (t < points.at(0).t) return 0;
+        if (t > points.at(points.size() - 1).t) return 0;
+
         size_t low = 0;
         size_t high = points.size() - 1;
 
@@ -122,4 +127,11 @@ struct ThrustCurve {
         return F0 + (((t - t0)/(t1 - t0)) * (F1 - F0));
 
     }
+
+    ThrustCurve() {}
+    ThrustCurve(std::string path) {
+        load(path);
+    }
+
+    bool operator== (const ThrustCurve&) const = default;
 };
